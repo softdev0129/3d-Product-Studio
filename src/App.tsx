@@ -210,62 +210,62 @@ function App() {
         }
     }
 
-    const downloadImage = (url: string, filename: string) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    };
+    // const downloadImage = (url: string, filename: string) => {
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.download = filename;
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    //     URL.revokeObjectURL(url);
+    // };
 
-    const handleCaptureMasks = async () => {
-        if (sceneCaptureRef.current && modelRef.current) {
-            setIsCapturing(true);
-
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Collect all meshes
-            const meshes: THREE.Mesh[] = [];
-            modelRef.current.traverse((object) => {
-                if (object instanceof THREE.Mesh) {
-                    meshes.push(object);
-                }
-            });
-
-            const configMeshes: THREE.Mesh[] = [];
-            modelRef.current.traverse((object) => {
-                if (object instanceof THREE.Mesh && (object.userData.materialIndex !== -1 || object.userData.color !== object.userData.originalMaterial.color.getHexString())) {
-                    configMeshes.push(object);
-                }
-            });
-
-            // **New Code: Capture current render before masks**
-            await sceneCaptureRef.current.captureCurrentRender((imageUrl: string) => {
-                downloadImage(imageUrl, `render.png`);
-            });
-
-            await sceneCaptureRef.current.captureFull(meshes, (imageUrl: string) => {
-                downloadImage(imageUrl, "full.png")
-            });
-
-            // Callback to handle each captured mask
-            const onMaskCaptured = (layerName: string, imageUrl: string) => {
-                downloadImage(imageUrl, `${layerName}-mask.png`);
-            };
-
-            await sceneCaptureRef.current.captureNormalPass((imageUrl: string) => {
-                downloadImage(imageUrl, `normal-pass.png`);
-            });
-
-
-            // Capture the masks
-            await sceneCaptureRef.current.captureMasks(configMeshes, meshes, onMaskCaptured);
-
-            setIsCapturing(false);
-        }
-    };
+    // const handleCaptureMasks = async () => {
+    //     if (sceneCaptureRef.current && modelRef.current) {
+    //         setIsCapturing(true);
+    //
+    //         await new Promise(resolve => setTimeout(resolve, 1000));
+    //
+    //         // Collect all meshes
+    //         const meshes: THREE.Mesh[] = [];
+    //         modelRef.current.traverse((object) => {
+    //             if (object instanceof THREE.Mesh) {
+    //                 meshes.push(object);
+    //             }
+    //         });
+    //
+    //         const configMeshes: THREE.Mesh[] = [];
+    //         modelRef.current.traverse((object) => {
+    //             if (object instanceof THREE.Mesh && (object.userData.materialIndex !== -1 || object.userData.color !== object.userData.originalMaterial.color.getHexString())) {
+    //                 configMeshes.push(object);
+    //             }
+    //         });
+    //
+    //         // **New Code: Capture current render before masks**
+    //         await sceneCaptureRef.current.captureCurrentRender((imageUrl: string) => {
+    //             downloadImage(imageUrl, `render.png`);
+    //         });
+    //
+    //         await sceneCaptureRef.current.captureFull(meshes, (imageUrl: string) => {
+    //             downloadImage(imageUrl, "full.png")
+    //         });
+    //
+    //         // Callback to handle each captured mask
+    //         const onMaskCaptured = (layerName: string, imageUrl: string) => {
+    //             downloadImage(imageUrl, `${layerName}-mask.png`);
+    //         };
+    //
+    //         await sceneCaptureRef.current.captureNormalPass((imageUrl: string) => {
+    //             downloadImage(imageUrl, `normal-pass.png`);
+    //         });
+    //
+    //
+    //         // Capture the masks
+    //         await sceneCaptureRef.current.captureMasks(configMeshes, meshes, onMaskCaptured);
+    //
+    //         setIsCapturing(false);
+    //     }
+    // };
 
     return (
         <>
