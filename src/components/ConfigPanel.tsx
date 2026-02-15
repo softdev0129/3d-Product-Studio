@@ -33,7 +33,7 @@ const ConfigPanel: React.FC<any> = ({modelRef, materialChanged, materials, setMa
             setConfigItems(configItems);
             setMaterialChanged(false);
         }
-    }, [materials, modelRef, setMaterialChanged]);
+    }, [materials, modelRef]);
 
     return (
         <div className={`absolute right-[210px] top-[200px] rounded-[17px] border border-white bg-gray-100 shadow-2xl max-h-[600px] overflow-auto ${(configItems.length === 0) ? 'hidden' : ''}`}>
