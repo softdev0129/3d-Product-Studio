@@ -109,7 +109,7 @@ function App() {
             processGenerations();
         }
 
-    }, [IsGenerate]);
+    }, [IsGenerate, generationInfos]);
 
     const handleLayerSelect = (layer: THREE.Mesh) => {
         if (selectedLayer !== null && layer.name === selectedLayer.name)
@@ -266,6 +266,7 @@ function App() {
             setIsCapturing(false);
         }
     };
+
     return (
         <>
             <Canvas
