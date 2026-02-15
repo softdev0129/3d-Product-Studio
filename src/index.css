@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+    height: 100%;
+    margin: unset;
+    font-family: Inter, serif;
+}
+
+.object {
+    color: #9BA2AE
+}
+
+.object .object-icon{
+    display: none
+}
+
+.object:hover {
+    color: #2563EA;
+    border: solid 1px #2563EA;
+    cursor: pointer;
+}
+
+.object:hover .object-icon {
+    display: block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin 2s linear infinite;
+}
